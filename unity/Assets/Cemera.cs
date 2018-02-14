@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityController : MonoBehaviour
+public class Cemera : MonoBehaviour
 {
     public float angle = 0,
            target_angle = 180;
@@ -29,6 +29,6 @@ public class GravityController : MonoBehaviour
 
 
         angle += (target_angle - angle) * 0.1f;
-        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)) * 100, (float)Math.Sin((angle - 90) * (Math.PI / 180.0)) * 100);
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }
