@@ -29,6 +29,16 @@ public class Cemera : MonoBehaviour
 
 
         angle += (target_angle - angle) * 0.1f;
+        if (angle >= 359)
+        {
+            angle = 0;
+            target_angle = 0;
+        }
+        if (angle <= -89)
+        {
+            angle = 270;
+            target_angle = 270;
+        }
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }
