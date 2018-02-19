@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GravityController : MonoBehaviour
 {
-    public float angle = 0,
-           target_angle = 180;
+    static public float angle = 0,
+                        target_angle = 180;
 
     // Use this for initialization
     void Start()
