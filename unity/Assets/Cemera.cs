@@ -7,7 +7,7 @@ public class Cemera : MonoBehaviour
 {
     // Update is called once per frame
     void Update()
-    { 
+    {
         transform.rotation = Quaternion.AngleAxis(GravityController.angle, Vector3.forward);
     }
 }
