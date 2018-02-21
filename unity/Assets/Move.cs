@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ public class Move : MonoBehaviour
     {
         float move_horizontal = Input.GetAxis("Horizontal");
 
-        Vector2 movement = new Vector2(move_horizontal, 0);
+        Vector2 movement = new Vector2(Mathf.Cos(GravityController.angle * (Mathf.PI/180))*move_horizontal, 
+                                       Mathf.Sin(GravityController.angle * (Mathf.PI/180))*move_horizontal);
         body.velocity += (movement * speed);
     }
 }
