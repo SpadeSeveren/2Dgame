@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Move : MonoBehaviour
 {
+    public float rayRange = 0.75f;
     public float speed;
     private Rigidbody2D body;
 
@@ -27,7 +28,7 @@ public class Move : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && OnGround())
         {
             body.AddForce(new Vector2(Mathf.Cos((GravityController.angle + 90) * (Mathf.PI / 180)), Mathf.Sin((GravityController.angle + 90) * (Mathf.PI / 180))) * 50000,
-                          ForceMode2D.Force);
+                            ForceMode2D.Force);
         }
     }
 
@@ -37,7 +38,7 @@ public class Move : MonoBehaviour
             Physics2D.Raycast(
                 body.position,
                 new Vector2(Mathf.Cos((GravityController.angle - 90) * (Mathf.PI / 180)), Mathf.Sin((GravityController.angle - 90) * (Mathf.PI / 180))),
-                1.5f,
+                rayRange,
                 ~(LayerMask.GetMask("Player"))
             ).rigidbody != null
 
@@ -46,7 +47,7 @@ public class Move : MonoBehaviour
             Physics2D.Raycast(
                 body.position,
                 new Vector2(Mathf.Cos(GravityController.angle * (Mathf.PI / 180)), Mathf.Sin(GravityController.angle * (Mathf.PI / 180))),
-                1.5f,
+                rayRange,
                 ~(LayerMask.GetMask("Player"))
             ).rigidbody != null
         );
