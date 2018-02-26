@@ -6,19 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Move : MonoBehaviour
 {
-    public Vector3 jump;
-    public float jumpForce = 2.0f;
-
-    public bool grounded;
-    Rigidbody2D rb;
     public float speed;
     private Rigidbody2D body;
 
     // Use this for initialization
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        jump = new Vector3(0.0f, 2.0f, 0.0f);
         body = GetComponent<Rigidbody2D>();
     }
 
@@ -31,22 +24,32 @@ public class Move : MonoBehaviour
                                        Mathf.Sin(GravityController.angle * (Mathf.PI / 180)) * move_horizontal);
         body.velocity += (movement * speed);
 
-        if (isGrounded())
+        if (Input.GetKeyDown(KeyCode.Space) && OnGround())
         {
-            grounded = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-
-            rb.AddForce(jump * jumpForce, ForceMode2D.Impulse);
-            grounded = false;
+            body.AddForce(new Vector2(Mathf.Cos((GravityController.angle + 90) * (Mathf.PI / 180)), Mathf.Sin((GravityController.angle + 90) * (Mathf.PI / 180))) * 50000,
+                          ForceMode2D.Force);
         }
     }
 
-    bool isGrounded()
+    bool OnGround()
     {
+        return (
+            Physics2D.Raycast(
+                body.position,
+                new Vector2(Mathf.Cos((GravityController.angle - 90) * (Mathf.PI / 180)), Mathf.Sin((GravityController.angle - 90) * (Mathf.PI / 180))),
+                1.5f,
+                ~(LayerMask.GetMask("Player"))
+            ).rigidbody != null
 
+            ||
+            
+            Physics2D.Raycast(
+                body.position,
+                new Vector2(Mathf.Cos(GravityController.angle * (Mathf.PI / 180)), Mathf.Sin(GravityController.angle * (Mathf.PI / 180))),
+                1.5f,
+                ~(LayerMask.GetMask("Player"))
+            ).rigidbody != null
+        );
     }
 
 }

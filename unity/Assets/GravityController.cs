@@ -39,6 +39,6 @@ public class GravityController : MonoBehaviour
             angle += 360;
             target_angle += 360;
         }
-        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)) * 100, (float)Math.Sin((angle - 90) * (Math.PI / 180.0)) * 100);
+        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)), (float)Math.Sin((angle - 90) * (Math.PI / 180.0))) * 300;
     }
 }
