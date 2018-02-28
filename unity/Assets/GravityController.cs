@@ -17,12 +17,12 @@ public class GravityController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             target_angle += 90;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             target_angle -= 90;
         }
@@ -31,15 +31,14 @@ public class GravityController : MonoBehaviour
         angle += (target_angle - angle) * 0.1f;
         if (angle >= 359)
         {
-            angle = 0;
-            target_angle = 0;
+            angle -= 360;
+            target_angle -= 360;
         }
         if (angle <= -89)
         {
-            angle = 270;
-            target_angle = 270;
+            angle += 360;
+            target_angle += 360;
         }
-        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)) * 100, (float)Math.Sin((angle - 90) * (Math.PI / 180.0)) * 100);
-        print("angle = " + angle);
+        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)), (float)Math.Sin((angle - 90) * (Math.PI / 180.0))) * 300;
     }
 }
