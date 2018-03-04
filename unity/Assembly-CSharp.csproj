@@ -52,7 +52,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Cemera.cs" />
+     <Compile Include="Assets\ChangeSprite.cs" />
      <Compile Include="Assets\GravityController.cs" />
+     <Compile Include="Assets\LevelLoad.cs" />
      <Compile Include="Assets\Move.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
