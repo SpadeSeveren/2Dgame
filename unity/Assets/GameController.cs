@@ -3,10 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityController : MonoBehaviour
+public class GameController : MonoBehaviour
 {
+    static public bool paused = false;
     static public float angle = 0,
                         target_angle = 180;
+
+    public GameObject pause_canvas;
+
+    public static void Pause() {
+        paused = true;
+    }
+
+    public static void Resume() {
+        paused = false;
+    }
 
     // Use this for initialization
     void Start()
@@ -17,6 +28,12 @@ public class GravityController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Time.timeScale = paused ? 0 : 1; 
+        
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            paused = !paused;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             target_angle += 90;
@@ -27,7 +44,10 @@ public class GravityController : MonoBehaviour
             target_angle -= 90;
         }
 
+        pause_canvas.SetActive(paused);
+    }
 
+    void FixedUpdate() {
         angle += (target_angle - angle) * 0.1f;
         if (angle >= 359)
         {
@@ -39,6 +59,7 @@ public class GravityController : MonoBehaviour
             angle += 360;
             target_angle += 360;
         }
-        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)), (float)Math.Sin((angle - 90) * (Math.PI / 180.0))) * 300;
+        Physics2D.gravity = new Vector2((float)Math.Cos((angle - 90) * (Math.PI / 180.0)), (float)Math.Sin((angle - 90) * (Math.PI / 180.0))) * 50;
+
     }
 }

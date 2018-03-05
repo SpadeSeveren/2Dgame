@@ -15,6 +15,6 @@ public class Cemera : MonoBehaviour
     // Update is called once per frame
     void Update() {
         transform.position = player.transform.position + offset;
-        transform.rotation = Quaternion.AngleAxis(GravityController.angle, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(GameController.angle, Vector3.forward);
     }
 }

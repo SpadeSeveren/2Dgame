@@ -17,18 +17,23 @@ public class Move : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float move_horizontal = Input.GetAxis("Horizontal");
+        
+        float x_vel = body.velocity.x,
+              y_vel = body.velocity.y,
+              move_angle = GameController.angle * (Mathf.PI / 180);
 
-        Vector2 movement = new Vector2(Mathf.Cos(GravityController.angle * (Mathf.PI / 180)) * move_horizontal,
-                                       Mathf.Sin(GravityController.angle * (Mathf.PI / 180)) * move_horizontal);
-        body.velocity += (movement * speed);
+        x_vel += (move_horizontal*Mathf.Cos(move_angle));
+        y_vel += (move_horizontal*Mathf.Sin(move_angle));
+
+        body.velocity = new Vector2(x_vel, y_vel);
 
         if (Input.GetKeyDown(KeyCode.Space) && OnGround())
         {
-            body.AddForce(new Vector2(Mathf.Cos((GravityController.angle + 90) * (Mathf.PI / 180)), Mathf.Sin((GravityController.angle + 90) * (Mathf.PI / 180))) * 50000,
-                            ForceMode2D.Force);
+            body.AddForce(new Vector2(Mathf.Cos((GameController.angle + 90) * (Mathf.PI / 180)), Mathf.Sin((GameController.angle + 90) * (Mathf.PI / 180))) * 15,
+                            ForceMode2D.Impulse);
         }
     }
 
@@ -37,8 +42,7 @@ public class Move : MonoBehaviour
         return (
             Physics2D.Raycast(
                 body.position,
-                new Vector2(Mathf.Cos((GravityController.angle - 90) * (Mathf.PI / 180)), Mathf.Sin((GravityController.angle - 90) * (Mathf.PI / 180))),
-                rayRange,
+                new Vector2(Mathf.Cos((GameController.angle - 90) * (Mathf.PI / 180)), Mathf.Sin((GameController.angle - 90) * (Mathf.PI / 180))), rayRange,
                 ~(LayerMask.GetMask("Player"))
             ).rigidbody != null
 
@@ -46,8 +50,7 @@ public class Move : MonoBehaviour
             
             Physics2D.Raycast(
                 body.position,
-                new Vector2(Mathf.Cos(GravityController.angle * (Mathf.PI / 180)), Mathf.Sin(GravityController.angle * (Mathf.PI / 180))),
-                rayRange,
+                new Vector2(Mathf.Cos(GameController.angle * (Mathf.PI / 180)), Mathf.Sin(GameController.angle * (Mathf.PI / 180))), rayRange,
                 ~(LayerMask.GetMask("Player"))
             ).rigidbody != null
         );
