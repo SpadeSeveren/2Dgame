@@ -2,14 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    static public int score = 0;
     static public bool paused = false;
     static public float angle = 0,
                         target_angle = 180;
 
     public GameObject pause_canvas;
+    public Text score_text;
 
     public static void Pause() {
         paused = true;
@@ -28,6 +31,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        score_text.text = "Score: " + score;
+
         Time.timeScale = paused ? 0 : 1; 
         
         if(Input.GetKeyDown(KeyCode.Escape)) {

@@ -42,10 +42,11 @@ public class Move : MonoBehaviour
     {
 		if(col.collider.tag == "Collectible") {
 			Destroy(col.gameObject);
+            GameController.score++;
 		}
 		if(col.collider.sharedMaterial.name != null && col.collider.sharedMaterial.name  == "Spikes") {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);	
+        }
     }
 
     bool OnGround()

@@ -57,6 +57,7 @@
      <Compile Include="Assets\LevelLoad.cs" />
      <Compile Include="Assets\MenuController.cs" />
      <Compile Include="Assets\Move.cs" />
+     <Compile Include="Assets\PauseController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
