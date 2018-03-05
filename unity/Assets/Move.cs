@@ -40,11 +40,11 @@ public class Move : MonoBehaviour
 	
 	void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.collider.sharedMaterial.name != null && col.collider.sharedMaterial.name  == "Spikes") {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
-		if(col.gameObject != null && col.gameObject.tag == "Collectible") {
+		if(col.collider.tag == "Collectible") {
 			Destroy(col.gameObject);
+		}
+		if(col.collider.sharedMaterial.name != null && col.collider.sharedMaterial.name  == "Spikes") {
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
     }
 
