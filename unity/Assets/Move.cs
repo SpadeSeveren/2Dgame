@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Move : MonoBehaviour
@@ -35,6 +36,13 @@ public class Move : MonoBehaviour
             body.AddForce(new Vector2(Mathf.Cos((GameController.angle + 90) * (Mathf.PI / 180)), Mathf.Sin((GameController.angle + 90) * (Mathf.PI / 180))) * 15,
                             ForceMode2D.Impulse);
         }
+    }
+	
+	void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.collider.sharedMaterial.name == "Spikes") {
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
     }
 
     bool OnGround()
