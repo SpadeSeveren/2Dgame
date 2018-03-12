@@ -21,13 +21,13 @@ public class Move : MonoBehaviour
     void FixedUpdate()
     {
         float move_horizontal = Input.GetAxis("Horizontal");
-        
+
         float x_vel = body.velocity.x,
               y_vel = body.velocity.y,
               move_angle = GameController.angle * (Mathf.PI / 180);
 
-        x_vel += (move_horizontal*Mathf.Cos(move_angle));
-        y_vel += (move_horizontal*Mathf.Sin(move_angle));
+        x_vel += (move_horizontal * Mathf.Cos(move_angle));
+        y_vel += (move_horizontal * Mathf.Sin(move_angle));
 
         body.velocity = new Vector2(x_vel, y_vel);
 
@@ -37,15 +37,18 @@ public class Move : MonoBehaviour
                             ForceMode2D.Impulse);
         }
     }
-	
-	void OnCollisionEnter2D(Collision2D col)
+
+    void OnCollisionEnter2D(Collision2D col)
     {
-		if(col.collider.tag == "Collectible") {
-			Destroy(col.gameObject);
+        if (col.collider.tag == "Collectible")
+        {
+            Destroy(col.gameObject);
             GameController.score++;
-		}
-		if(col.collider.sharedMaterial.name != null && col.collider.sharedMaterial.name  == "Spikes") {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);	
+        }
+        if (col.collider.sharedMaterial.name != null && col.collider.sharedMaterial.name == "Spikes")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SoundManagerScript.PlayerSound("death");
         }
     }
 
@@ -59,7 +62,7 @@ public class Move : MonoBehaviour
             ).rigidbody != null
 
             ||
-            
+
             Physics2D.Raycast(
                 body.position,
                 new Vector2(Mathf.Cos(GameController.angle * (Mathf.PI / 180)), Mathf.Sin(GameController.angle * (Mathf.PI / 180))), rayRange,
